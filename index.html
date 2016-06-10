@@ -1,0 +1,50 @@
+<!doctype HTML>
+<html ng-app="ghMod">
+	<head>
+		<meta charset="utf-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="author" content="Osanna Hui"/>
+		<title>Retrieve Github User Info with Github API</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	</head>
+	<body>
+		<div ng-controller="ghCtrl">
+			<div id="search" class="form-horizontal">
+				<h1>Want to find GitHub a user?</h1>
+				<label>GitHub Username: </label>
+				<input class="form-control" id="username" placeholder="username" autofocus/>
+				<button type="submit" class="btn btn-primary" id="submit">Search</button>
+			</div>
+
+			<header id="resultHeader">
+				<div id="userImg">
+					<img id="avatar_url"/>
+				</div>
+				<div id="userInfo">
+					<h1>{{username}}</h1>
+					<span>Date Joined: {{joinDate | date:"longDate"}}</span><br/>
+					<span>Location: {{location}}</span><br/>
+					<span>Public Repositories: {{publicRepos}}</span><br/>
+					<label>Search For Repository(ies): </label><input class="form-control" placeholder="Repository Name" ng-model="searchRepo.name"/>
+				</div>
+			</header>
+
+			<div id="results">
+				<h1>{{username}}'s Repositories:</h1>
+				<div class="reposDisplay" ng-repeat="repo in repos | orderBy:'-forks_count' | filter:searchRepo:strict">
+					<h2>{{repo.name}}</h2>
+					<span>Forks: {{repo.forks_count}}</span><br/>
+					<span>Language: {{repo.language}}</span>
+					<br/>
+					<span>Date Created: {{repo.created_at | date:"longDate"}}</span>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script type="text/javascript" src="./js/script.js"></script>
+	</body>
+</html>

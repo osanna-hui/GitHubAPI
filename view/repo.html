@@ -1,0 +1,15 @@
+<div class="container" ng-controller="ghCtrl">
+	<header>
+		<h1>Displaying Public Repositories of {{username}}</h1>
+		<label>Search: <input placeholder="Repository Name" ng-model="searchRepo.name"></label>
+	</header>
+	<div id="display">
+		<div class="reposDisplay" ng-repeat="repo in repos | orderBy:'-forks_count' | filter:searchRepo:strict">
+			<h2>{{repo.name}}</h2>
+			<span>Forks: {{repo.forks_count}}</span><br/>
+			<span>Language: {{repo.language}}</span>
+			<br/>
+			<span>Date Created: {{repo.created_at | date:"longDate"}}</span>
+		</div>
+	</div>
+</div>
